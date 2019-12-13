@@ -84,6 +84,11 @@ html, body {
   color: var(--secondary-color);
 }
 
+.rooms-list .room div:hover,
+.rooms-list .room.active div:hover {
+  cursor: pointer;
+}
+
 .new-room-form {
   padding: 0 5px;
   background: var(--secondary-color);
