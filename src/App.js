@@ -1,4 +1,5 @@
 import React from 'react'
+import * as qs from 'query-string'
 import Chatkit from '@pusher/chatkit-client'
 import MessageList from './components/MessageList'
 import SendMessageForm from './components/SendMessageForm'
@@ -26,9 +27,16 @@ class App extends React.Component {
     } 
     
     componentDidMount() {
+        const params = qs.parse(this.props.location.search)
+
+        let user = 'johndoe'
+        if (params.user && params.user.length > 0) {
+            user = params.user
+        }
+
         const chatManager = new Chatkit.ChatManager({
             instanceLocator,
-            userId: 'johndoe',
+            userId: user,
             tokenProvider: new Chatkit.TokenProvider({
                 url: tokenUrl
             })
@@ -55,13 +63,19 @@ class App extends React.Component {
     
     subscribeToRoom(roomId) {
         this.setState({ messages: [] })
-        this.currentUser.subscribeToRoom({
+        this.currentUser.subscribeToRoomMultipart({
             roomId: roomId,
             hooks: {
-                onNewMessage: message => {
+                onMessage: message => {
                     this.setState({
                         messages: [...this.state.messages, message]
                     })
+                },
+                onUserStartedTyping: user => {
+                    console.log(`User ${user.name} started typing`)
+                },
+                onUserStoppedTyping: user => {
+                    console.log(`User ${user.name} stopped typing`)
                 }
             }
         })
@@ -75,7 +89,7 @@ class App extends React.Component {
     }
     
     sendMessage(text) {
-        this.currentUser.sendMessage({
+        this.currentUser.sendSimpleMessage({
             text,
             roomId: this.state.roomId
         })

@@ -1,11 +1,21 @@
 import React from 'react'
 
-function Message(props) {  
+function Message(props) {
+    const message = props.message
+
     return (
-        <div className="message">
-            <div className="message-username">{props.username}</div>
-            <div className="message-text">{props.text}</div>
-        </div>
+        <>
+        {message.parts.map((part,idx) => {
+        if (part.partType === "inline") {
+            return (
+                <div key={idx} className="message">
+                    <div className="message-username">{message.senderId}</div>
+                    <div className="message-text">{part.payload.content}</div>
+                </div>
+            )
+        } else return null;
+        })}
+        </>
     )
 }
 
