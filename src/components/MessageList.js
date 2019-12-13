@@ -4,7 +4,7 @@ import Message from './Message'
 
 class MessageList extends React.Component {
     
-    componentWillUpdate() {
+    UNSAFE_componentWillUpdate() {
         const node = ReactDOM.findDOMNode(this)
         this.shouldScrollToBottom = node.scrollTop + node.clientHeight + 100 >= node.scrollHeight
     }
