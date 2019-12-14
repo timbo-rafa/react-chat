@@ -46,6 +46,7 @@ class App extends React.Component {
         .then(currentUser => {
             this.currentUser = currentUser
             this.getRooms()
+            console.log(this.currentUser)
         })
         .catch(err => console.log('error on connecting: ', err))
     }
@@ -110,7 +111,8 @@ class App extends React.Component {
                     subscribeToRoom={this.subscribeToRoom}
                     rooms={[...this.state.joinableRooms, ...this.state.joinedRooms]}
                     roomId={this.state.roomId} />
-                <MessageList 
+                <MessageList
+                    user={this.currentUser?.id || ""} 
                     roomId={this.state.roomId}
                     messages={this.state.messages} />
                 <SendMessageForm

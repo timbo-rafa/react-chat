@@ -31,7 +31,7 @@ class MessageList extends React.Component {
             <div className="message-list">
                 {this.props.messages.map((message, index) => {
                     return (
-                        <Message key={message.id} message={message} />
+                        <Message key={message.id} user={this.props.user} message={message} />
                     )
                 })}
             </div>

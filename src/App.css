@@ -148,6 +148,18 @@ html, body {
   border-radius: 8px;
 }
 
+.message .message-text-self {
+  background: var(--secondary-color);
+  color: var(--main-color);
+  display: inline;
+  padding: 4px 8px;
+  border-style: solid;
+  border-width: thin;
+  border-radius: 8px;
+  border-color: var(--main-color);
+}
+
+
 .message-list {
   box-sizing: border-box;
   padding-left: 6px;
