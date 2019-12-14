@@ -29,7 +29,7 @@ class App extends React.Component {
     componentDidMount() {
         const params = qs.parse(this.props.location.search)
 
-        let user = 'johndoe'
+        let user = 'anonymous'
         if (params.user && params.user.length > 0) {
             user = params.user
         }
@@ -112,7 +112,7 @@ class App extends React.Component {
                     rooms={[...this.state.joinableRooms, ...this.state.joinedRooms]}
                     roomId={this.state.roomId} />
                 <MessageList
-                    user={this.currentUser?.id || ""} 
+                    user={this.currentUser?.id || "anonymous"} 
                     roomId={this.state.roomId}
                     messages={this.state.messages} />
                 <SendMessageForm
