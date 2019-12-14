@@ -1,13 +1,15 @@
 import React from 'react'
 
+import './Message.css'
+
 function Message(props) {
     const message = props.message
 
-    let messageStyle = "message-text"
+    let borderOnSelf = ""
 
     console.log(message.parts[0].payload.content, props, props.user === message.senderId)
-    if (props.user === message.senderId) {
-        messageStyle = "message-text-self"
+    if (props.user === message.senderId && message.senderId !== "anonymous") {
+        borderOnSelf = "border"
     }
 
     return (
@@ -17,7 +19,12 @@ function Message(props) {
             return (
                 <div key={idx} className="message">
                     <div className="message-username">{message.senderId}</div>
-                    <div className={messageStyle}>{part.payload.content}</div>
+
+                    <div className={"talk-bubble tri-right round left-top " + borderOnSelf}>
+                        <div className="talktext">
+                            <p>{part.payload.content}</p>
+                        </div>
+                    </div>
                 </div>
             )
         } else return null;
